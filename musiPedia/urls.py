@@ -16,10 +16,15 @@ router.register(r'albums', core_views.AlbumViewSet)
 router.register(r'albums', core_views.AlbumCreateViewSet)
 router.register(r'songs', core_views.SongViewSet)
 router.register(r'songs', core_views.SongCreateViewSet)
+router.register(r'artists', core_views.ArtistRatingViewSet, basename='rate-artist')
+router.register(r'albums', core_views.AlbumRatingViewSet, basename='rate-album')
+router.register(r'songs', core_views.SongRatingViewSet, basename='rate-song')
 # router.register()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1', include(router.urls)),
+    path('api/v1/', include(router.urls)),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
     re_path(r'^$', RedirectView.as_view(url=reverse_lazy('api-root'), permanent=False))
 ]
