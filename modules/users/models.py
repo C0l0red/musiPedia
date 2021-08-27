@@ -8,6 +8,4 @@ class User(AbstractUser):
     email = models.EmailField(max_length=120, unique=True)
     image = models.URLField()
 
-    class Meta:
-        app_label = "modules"
 
