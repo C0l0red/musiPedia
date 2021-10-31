@@ -1,3 +1,4 @@
+from factory.django import DjangoModelFactory
 from rest_framework.test import APITestCase
 from modules.users.models import User
 from .factories import UserFactory
@@ -5,12 +6,11 @@ from .factories import UserFactory
 class TestUserModel(APITestCase):
 
     def setUp(self):
-        pass
+        factory: DjangoModelFactory = UserFactory
+        self.build: User = factory.build()
 
     def test_user_model_saves_correctly(self):
-        user: User = UserFactory()
+        self.build.save()
 
-        db_user: User = User.objects.first()
-
-        self.assertEquals(db_user.username, user.username)
+        self.assertTrue(User.objects.filter(email=self.build.email).exists())
         
